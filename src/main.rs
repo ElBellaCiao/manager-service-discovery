@@ -2,6 +2,7 @@ use cloud_util::Ec2;
 use aws_lambda_events::apigw::{ApiGatewayV2httpRequest, ApiGatewayV2httpResponse};
 use lambda_runtime::{run, service_fn, LambdaEvent, Error};
 use anyhow::{anyhow, Context, Result};
+use aws_lambda_events::http::HeaderMap;
 use serde::{Deserialize, Serialize};
 
 #[derive(Deserialize)]
@@ -29,7 +30,11 @@ async fn process(payload: ApiGatewayV2httpRequest) -> Result<ApiGatewayV2httpRes
     let body = serde_json::to_string(&output)
         .context("failed to serialize response JSON")?;
 
+    let mut headers = HeaderMap::new();
+    headers.insert("Content-Type", "application/json".parse().unwrap());
+
     Ok(ApiGatewayV2httpResponse {
+        headers,
         status_code: 200,
         body: Some(body.into()),
         ..Default::default()
