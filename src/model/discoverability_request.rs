@@ -3,10 +3,12 @@ use crate::model::group::Group;
 use chrono::{DateTime, Utc};
 use serde::Deserialize;
 
+#[derive(Debug)]
 pub struct GetAssignmentRequest {
     pub instance_id: InstanceId,
 }
 
+#[derive(Debug)]
 pub struct PutAssignmentRequest {
     pub instance_id: InstanceId,
     pub stocks: Vec<String>,

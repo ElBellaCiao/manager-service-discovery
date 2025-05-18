@@ -20,7 +20,7 @@ pub async fn get_assignment(req: GetAssignmentRequest, deps: Deps) -> Result<Ins
     let instance_assignment = table_client.get_entry(group, req.instance_id.as_ref()).await?;
 
     if Utc::now() > instance_assignment.expire_at {
-        bail!("Assignment has expired");
+        bail!("Assignment has expired: current time = {}, expires at = {}", Utc::now(), instance_assignment.expire_at);
     }
 
     Ok(instance_assignment)

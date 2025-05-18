@@ -11,6 +11,8 @@ regex = "1"
 chrono = { version = "0", features = ["serde"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
+tracing = { version = "0", features = ["attributes"] }
+tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }
 
 # === AWS SDK & Lambda Support ===
 aws_lambda_events = "0"
@@ -23,3 +25,4 @@ derive_more = { version = "2", features = ["display"] }
 
 # === Custom Libraries ===
 cloud-util = {git = "https://github.com/ElBellaCiao/cloud-util.git", features = ["instance", "table"] }
+uuid = { version = "1.16.0", features = ["v4"] }
