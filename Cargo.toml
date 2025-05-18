@@ -24,5 +24,4 @@ strum_macros = "0"
 derive_more = { version = "2", features = ["display"] }
 
 # === Custom Libraries ===
-cloud-util = {git = "https://github.com/ElBellaCiao/cloud-util.git", features = ["instance", "table"] }
-uuid = { version = "1.16.0", features = ["v4"] }
+cloud-util = {git = "https://github.com/ElBellaCiao/cloud-util.git", features = ["instance", "table"], rev = "5bafe4ff678f51afa005b1672cbdd7cae8590ca3" }
