@@ -1,3 +1,4 @@
+use anyhow::{bail, Result};
 use crate::common::response::{error_response, success_response};
 use crate::model::discoverability_request::{GetAssignmentRequest, PutAssignmentRequest, PutAssignmentRequestBody};
 use crate::model::InstanceId;
@@ -10,10 +11,10 @@ use tracing::{error, instrument, warn, Span};
 pub async fn handle_get(req: Request, deps: Deps) -> Response<Body> {
     let instance_id = match parse_instance_id(&req) {
         Ok(id) => id,
-        Err(resp) => return resp
+        Err(e) => return error_response(400, e.to_string())
     };
 
-    Span::current().record("instance_id", &tracing::field::display(&instance_id));
+    Span::current().record("instance_id", tracing::field::display(&instance_id));
 
     let get_assignment_request = GetAssignmentRequest { instance_id };
 
@@ -38,10 +39,10 @@ pub async fn handle_get(req: Request, deps: Deps) -> Response<Body> {
 pub async fn handle_put(req: Request, deps: Deps) -> Response<Body> {
     let instance_id = match parse_instance_id(&req) {
         Ok(id) => id,
-        Err(resp) => return resp,
+        Err(e) => return error_response(400, e.to_string())
     };
 
-    Span::current().record("instance_id", &tracing::field::display(&instance_id));
+    Span::current().record("instance_id", tracing::field::display(&instance_id));
 
     let body: PutAssignmentRequestBody = match serde_json::from_slice(req.body().as_ref()) {
         Ok(b) => b,
@@ -67,12 +68,12 @@ pub async fn handle_put(req: Request, deps: Deps) -> Response<Body> {
     success_response(None)
 }
 
-fn parse_instance_id(req: &Request) -> Result<InstanceId, Response<Body>> {
+fn parse_instance_id(req: &Request) -> Result<InstanceId> {
     let id_str = match req.path_parameters().first("id") {
         Some(id) => id.to_string(),
         None => {
             warn!(path = %req.uri().path(), "Missing path parameter: `id`");
-            return Err(error_response(400, "Missing path parameter: id"));
+            bail!("Missing path parameter: id")
         }
     };
 
@@ -80,7 +81,7 @@ fn parse_instance_id(req: &Request) -> Result<InstanceId, Response<Body>> {
         Ok(id) => Ok(id),
         Err(e) => {
             warn!(invalid_id = %id_str, "Failed to parse instance ID");
-            Err(error_response(400, format!("Invalid instance ID: {}", e)))
+            bail!("Invalid instance ID: {}", e)
         }
     }
 }

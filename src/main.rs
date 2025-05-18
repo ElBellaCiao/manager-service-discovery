@@ -17,8 +17,8 @@ mod common;
 #[instrument(skip(deps), fields(request_id = tracing::field::Empty))]
 async fn handler(req: Request, deps: Deps) -> Result<Response<Body>, lambda_http::Error> {
     let request_id = Uuid::new_v4();
-    Span::current().record("request_id", &tracing::field::display(&request_id));
-    
+    Span::current().record("request_id", tracing::field::display(&request_id));
+
     match *req.method() {
         Method::GET => Ok(routes::discoverability_routes::handle_get(req, deps).await),
         Method::PUT => Ok(routes::discoverability_routes::handle_put(req, deps).await),
@@ -40,6 +40,6 @@ async fn main() -> Result<(), lambda_http::Error> {
         instance_client: Arc::new(cloud_util::Ec2::new(None).await),
         table_client: Arc::new(cloud_util::DynamoDb::new(None, config.table_name.clone()).await)
     };
-    
+
     run(service_fn(move |req| handler(req, deps.clone()))).await
 }
