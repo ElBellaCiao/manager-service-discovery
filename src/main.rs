@@ -1,3 +1,4 @@
+use crate::common::response::error_response;
 use crate::common::Config;
 use crate::service::discoverability_service::Deps;
 use anyhow::Result;
@@ -14,9 +15,7 @@ async fn handler(req: Request, deps: Deps) -> Result<Response<Body>, lambda_http
     match *req.method() {
         Method::GET => Ok(routes::discoverability_routes::handle_get(req, deps).await),
         Method::PUT => Ok(routes::discoverability_routes::handle_put(req, deps).await),
-        _ => Ok(Response::builder()
-            .status(405)
-            .body("Method Not Allowed".into())?),
+        _ => Ok(error_response(500, format!("Method Not Allowed: {}", *req.method()))),
     }
 }
 
