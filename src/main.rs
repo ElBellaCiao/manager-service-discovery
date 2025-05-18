@@ -3,11 +3,10 @@ use crate::common::Config;
 use crate::service::discoverability_service::Deps;
 use anyhow::Result;
 use aws_lambda_events::http::Method;
-use lambda_http::{run, service_fn, Body, Request, Response};
+use lambda_http::{run, service_fn, Body, Request, RequestExt, Response};
 use std::sync::Arc;
 use tracing::{instrument, Span};
 use tracing_subscriber::EnvFilter;
-use uuid::Uuid;
 
 mod routes;
 mod model;
@@ -16,8 +15,8 @@ mod common;
 
 #[instrument(skip(deps), fields(request_id = tracing::field::Empty))]
 async fn handler(req: Request, deps: Deps) -> Result<Response<Body>, lambda_http::Error> {
-    let request_id = Uuid::new_v4();
-    Span::current().record("request_id", tracing::field::display(&request_id));
+    let request_id = req.lambda_context().request_id;
+    Span::current().record("request_id", tracing::field::display(request_id));
 
     match *req.method() {
         Method::GET => Ok(routes::discoverability_routes::handle_get(req, deps).await),
