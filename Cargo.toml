@@ -4,14 +4,22 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-# Core runtime
+# === Core Runtime & Utilities ===
 tokio = { version = "1", features = ["full"] }
 anyhow = "1"
-serde_json = "1"
+regex = "1"
+chrono = { version = "0", features = ["serde"] }
 serde = { version = "1", features = ["derive"] }
+serde_json = "1"
 
-# AWS SDK
+# === AWS SDK & Lambda Support ===
 aws_lambda_events = "0"
-lambda_runtime = "0"
+lambda_http = "0"
 
-cloud-util = {git = "https://github.com/ElBellaCiao/cloud-util.git", features = ["ec2"] }
+# === Derive Macros / Enum Enhancements ===
+strum = "0"
+strum_macros = "0"
+derive_more = { version = "2", features = ["display"] }
+
+# === Custom Libraries ===
+cloud-util = {git = "https://github.com/ElBellaCiao/cloud-util.git", features = ["instance", "table"] }
