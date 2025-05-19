@@ -1,8 +1,8 @@
-use crate::model::instance_id::InstanceId;
 use crate::model::group::Group;
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use std::net::IpAddr;
+use cloud_util::InstanceId;
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct InstanceAssignment {

@@ -1,7 +1,7 @@
 use anyhow::{bail, Result};
+use cloud_util::InstanceId;
 use crate::common::response::{error_response, success_response};
 use crate::model::discoverability_request::{GetAssignmentRequest, PutAssignmentRequest, PutAssignmentRequestBody};
-use crate::model::InstanceId;
 use crate::service::discoverability_service;
 use crate::service::discoverability_service::Deps;
 use lambda_http::{Body, Request, RequestExt, Response};

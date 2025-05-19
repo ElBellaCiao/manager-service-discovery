@@ -1,6 +1,6 @@
-use crate::model::instance_id::InstanceId;
 use crate::model::group::Group;
 use chrono::{DateTime, Utc};
+use cloud_util::InstanceId;
 use serde::Deserialize;
 
 #[derive(Debug)]

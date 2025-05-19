@@ -13,6 +13,7 @@ serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 tracing = { version = "0", features = ["attributes"] }
 tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }
+thiserror = "1"
 
 # === AWS SDK & Lambda Support ===
 aws_lambda_events = "0"
@@ -24,4 +25,4 @@ strum_macros = "0"
 derive_more = { version = "2", features = ["display"] }
 
 # === Custom Libraries ===
-cloud-util = {git = "https://github.com/ElBellaCiao/cloud-util.git", features = ["instance", "table"], rev = "5bafe4ff678f51afa005b1672cbdd7cae8590ca3" }
+cloud-util = {git = "https://github.com/ElBellaCiao/cloud-util.git", features = ["instance", "table"], rev = "04f26d2e8dab4af98afe1d6367f035acd89a4700" }
