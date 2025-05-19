@@ -1,5 +1,5 @@
 use anyhow::{bail, Result};
-use cloud_util::InstanceId;
+use cloud_util::{CloudError, InstanceId};
 use crate::common::response::{error_response, success_response};
 use crate::model::discoverability_request::{GetAssignmentRequest, PutAssignmentRequest, PutAssignmentRequestBody};
 use crate::service::discoverability_service;
@@ -20,10 +20,7 @@ pub async fn handle_get(req: Request, deps: Deps) -> Response<Body> {
 
     let result = match discoverability_service::get_assignment(get_assignment_request, deps).await {
         Ok(val) => val,
-        Err(e) => {
-            error!(error = ?e, "Failed to fetch instance assignment");
-            return error_response(500, "Internal server error");
-        }
+        Err(e) => return handle_cloud_error("Failed to fetch instance assignment", &e),
     };
 
     match serde_json::to_string(&result) {
@@ -61,11 +58,23 @@ pub async fn handle_put(req: Request, deps: Deps) -> Response<Body> {
     };
 
     if let Err(e) = discoverability_service::put_assignment(put_request, deps).await {
-        error!(error = ?e, "Failed to persist instance assignment");
-        return error_response(500, "Internal server error");
+        return handle_cloud_error("Failed to persist instance assignment", &e);
     }
     
     success_response(None)
+}
+
+fn handle_cloud_error(context: &str, err: &CloudError) -> Response<Body> {
+    match err {
+        CloudError::Client(msg) => {
+            error!(error = ?err, "{context} (client-side)");
+            error_response(400, msg)
+        }
+        CloudError::Server(_) => {
+            error!(error = ?err, "{context} (server-side)");
+            error_response(500, "Internal server error")
+        }
+    }
 }
 
 fn parse_instance_id(req: &Request) -> Result<InstanceId> {
