@@ -21,7 +21,7 @@ pub async fn handle_get(req: Request, deps: Deps) -> Response<Body> {
     let result = match discoverability_service::get_assignment(get_assignment_request, deps).await {
         Ok(val) => val,
         Err(e) => {
-            error!(error = %e, "Failed to fetch instance assignment");
+            error!(error = ?e, "Failed to fetch instance assignment");
             return error_response(500, "Internal server error");
         }
     };
@@ -29,7 +29,7 @@ pub async fn handle_get(req: Request, deps: Deps) -> Response<Body> {
     match serde_json::to_string(&result) {
         Ok(body) => success_response(Some(body.into())),
         Err(e) => {
-            error!(error = %e, "Failed to serialize response body");
+            error!(error = ?e, "Failed to serialize response body");
             error_response(500, "Internal server error")
         }
     }
@@ -47,7 +47,7 @@ pub async fn handle_put(req: Request, deps: Deps) -> Response<Body> {
     let body: PutAssignmentRequestBody = match serde_json::from_slice(req.body().as_ref()) {
         Ok(b) => b,
         Err(e) => {
-            warn!(error = %e, "Failed to parse request body as JSON");
+            warn!(error = ?e, "Failed to parse request body as JSON");
             return error_response(400, "Invalid request body");
         }
     };
@@ -61,7 +61,7 @@ pub async fn handle_put(req: Request, deps: Deps) -> Response<Body> {
     };
 
     if let Err(e) = discoverability_service::put_assignment(put_request, deps).await {
-        error!(error = %e, "Failed to persist instance assignment");
+        error!(error = ?e, "Failed to persist instance assignment");
         return error_response(500, "Internal server error");
     }
     
