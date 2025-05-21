@@ -34,7 +34,7 @@ pub async fn put_assignment(req: PutAssignmentRequest, deps: Deps) -> Result<(),
     let group = tags
         .get("App")
         .ok_or_else(|| CloudError::client("Missing 'App' tag"))
-        .and_then(|val| val.parse().map_err(|_| CloudError::client(val)))?;
+        .and_then(|val| val.parse().map_err(|_| CloudError::client(format!("Invalid group type: {}",val))))?;
     
     let metadata = instance_client.get_instance_metadata(&req.instance_id).await?;
 
