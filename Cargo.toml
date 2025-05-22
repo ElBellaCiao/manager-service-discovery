@@ -22,4 +22,4 @@ strum = "0"
 strum_macros = "0"
 
 # === Custom Libraries ===
-cloud-util = {git = "https://github.com/ElBellaCiao/cloud-util.git", features = ["instance", "table"], rev = "04f26d2e8dab4af98afe1d6367f035acd89a4700" }
+cloud-util = {git = "https://github.com/ElBellaCiao/cloud-util.git", features = ["instance", "table"], rev = "82111d6aca4fc5f1e91d7ee538566abaa5e2667b" }
