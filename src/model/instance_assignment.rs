@@ -28,7 +28,7 @@ pub struct InstanceAssignment {
 
 impl cloud_util::Keyed for InstanceAssignment {
     fn pk(&self) -> String {
-        self.instance_id.to_string()
+        self.group.to_string()
     }
 
     fn sk(&self) -> String {
