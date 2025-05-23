@@ -5,9 +5,11 @@ use strum_macros::{Display, EnumString};
 #[strum(serialize_all = "lowercase")]
 #[serde(rename_all = "lowercase")]
 pub enum Group {
+    Input,
     Parser,
     Lob,
     Ml,
     Orchestrator,
-    Executor
+    Executor,
+    Output,
 }
