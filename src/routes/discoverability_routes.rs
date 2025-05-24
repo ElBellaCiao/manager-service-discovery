@@ -1,4 +1,5 @@
 use anyhow::{bail, Result};
+use chrono::Utc;
 use cloud_util::{CloudError, InstanceId};
 use crate::common::response::{error_response, success_response};
 use crate::model::discoverability_request::{GetAssignmentRequest, PutAssignmentRequest, PutAssignmentRequestBody};
@@ -48,6 +49,10 @@ pub async fn handle_put(req: Request, deps: Deps) -> Response<Body> {
             return error_response(400, "Invalid request body");
         }
     };
+    
+    if body.expire_at < Utc::now() {
+        return error_response(400, "Assignment already expired");
+    }
 
     let put_request = PutAssignmentRequest {
         instance_id,
