@@ -1,7 +1,8 @@
-pub mod discoverability_request;
-mod instance_assignment;
+mod assignment;
 mod group;
+pub mod body;
+pub mod request;
 
 pub use {
-    instance_assignment::InstanceAssignment,
+    assignment::Assignment,
 };

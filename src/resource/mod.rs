@@ -1,0 +1,4 @@
+mod service_discoverability_client;
+mod assignment_client;
+
+pub use service_discoverability_client::ServiceDiscoverabilityClient;

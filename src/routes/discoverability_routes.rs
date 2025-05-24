@@ -2,11 +2,12 @@ use anyhow::{bail, Result};
 use chrono::Utc;
 use cloud_util::{CloudError, InstanceId};
 use crate::common::response::{error_response, success_response};
-use crate::model::discoverability_request::{GetAssignmentRequest, PutAssignmentRequest, PutAssignmentRequestBody};
+use crate::model::request::{GetAssignmentRequest, PutAssignmentRequest};
 use crate::service::discoverability_service;
 use crate::service::discoverability_service::Deps;
 use lambda_http::{Body, Request, RequestExt, Response};
 use tracing::{error, instrument, warn, Span};
+use crate::model::body::PutAssignmentBody;
 
 #[instrument(skip(deps), fields(instance_id = tracing::field::Empty))]
 pub async fn handle_get(req: Request, deps: Deps) -> Response<Body> {
@@ -42,7 +43,7 @@ pub async fn handle_put(req: Request, deps: Deps) -> Response<Body> {
 
     Span::current().record("instance_id", tracing::field::display(&instance_id));
 
-    let body: PutAssignmentRequestBody = match serde_json::from_slice(req.body().as_ref()) {
+    let body: PutAssignmentBody = match serde_json::from_slice(req.body().as_ref()) {
         Ok(b) => b,
         Err(e) => {
             warn!(error = ?e, "Failed to parse request body as JSON");

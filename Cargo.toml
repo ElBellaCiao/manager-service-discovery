@@ -20,6 +20,10 @@ lambda_http = "0"
 # === Derive Macros / Enum Enhancements ===
 strum = "0"
 strum_macros = "0"
+derive_builder = "0"
+
+# == http ==
+reqwest = "0"
 
 # === Custom Libraries ===
-cloud-util = {git = "https://github.com/ElBellaCiao/cloud-util.git", features = ["instance", "table"], rev = "82111d6aca4fc5f1e91d7ee538566abaa5e2667b" }
+cloud-util = {git = "https://github.com/ElBellaCiao/cloud-util.git", features = ["instance", "table", "api"], rev = "a8e8a8c429399167d7263fe7e1b444564c2bf912" }

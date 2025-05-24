@@ -1,16 +1,16 @@
-use crate::model::discoverability_request::{GetAssignmentRequest, PutAssignmentRequest};
-use crate::model::InstanceAssignment;
+use crate::model::request::{GetAssignmentRequest, PutAssignmentRequest};
+use crate::model::Assignment;
 use chrono::Utc;
 use cloud_util::CloudError;
 use std::sync::Arc;
 
 #[derive(Clone)]
 pub struct Deps {
-    pub table_client: Arc<dyn cloud_util::Table<InstanceAssignment>>,
+    pub table_client: Arc<dyn cloud_util::Table<Assignment>>,
     pub instance_client: Arc<dyn cloud_util::Instance>,
 }
 
-pub async fn get_assignment(req: GetAssignmentRequest, deps: Deps) -> Result<InstanceAssignment, CloudError> {
+pub async fn get_assignment(req: GetAssignmentRequest, deps: Deps) -> Result<Assignment, CloudError> {
     let Deps { table_client, instance_client } = deps;
 
     let tags = instance_client.get_tags_by_instance(&req.instance_id).await?;
@@ -38,7 +38,7 @@ pub async fn put_assignment(req: PutAssignmentRequest, deps: Deps) -> Result<(),
     
     let metadata = instance_client.get_instance_metadata(&req.instance_id).await?;
 
-    let assignment = InstanceAssignment {
+    let assignment = Assignment {
         group,
         ip: metadata.private_ip,
         instance_id: req.instance_id,

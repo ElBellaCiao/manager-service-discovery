@@ -5,7 +5,7 @@ use std::net::IpAddr;
 use cloud_util::InstanceId;
 
 #[derive(Debug, Deserialize, Serialize)]
-pub struct InstanceAssignment {
+pub struct Assignment {
     // Name required by ddb
     #[serde(rename = "PK")]
     pub group: Group,
@@ -26,7 +26,7 @@ pub struct InstanceAssignment {
     // Consider adding a status field.
 }
 
-impl cloud_util::Keyed for InstanceAssignment {
+impl cloud_util::Keyed for Assignment {
     fn pk(&self) -> String {
         self.group.to_string()
     }
