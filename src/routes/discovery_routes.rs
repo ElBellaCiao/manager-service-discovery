@@ -3,8 +3,8 @@ use chrono::Utc;
 use cloud_util::{CloudError, InstanceId};
 use crate::common::response::{error_response, success_response};
 use crate::model::request::{GetAssignmentRequest, PutAssignmentRequest};
-use crate::service::discoverability_service;
-use crate::service::discoverability_service::Deps;
+use crate::service::discovery_service;
+use crate::service::discovery_service::Deps;
 use lambda_http::{Body, Request, RequestExt, Response};
 use tracing::{error, instrument, warn, Span};
 use crate::model::body::PutAssignmentBody;
@@ -20,7 +20,7 @@ pub async fn handle_get(req: Request, deps: Deps) -> Response<Body> {
 
     let get_assignment_request = GetAssignmentRequest { instance_id };
 
-    let result = match discoverability_service::get_assignment(get_assignment_request, deps).await {
+    let result = match discovery_service::get_assignment(get_assignment_request, deps).await {
         Ok(val) => val,
         Err(e) => return handle_cloud_error("Failed to fetch instance assignment", &e),
     };
@@ -63,7 +63,7 @@ pub async fn handle_put(req: Request, deps: Deps) -> Response<Body> {
         expire_at: body.expire_at,
     };
 
-    if let Err(e) = discoverability_service::put_assignment(put_request, deps).await {
+    if let Err(e) = discovery_service::put_assignment(put_request, deps).await {
         return handle_cloud_error("Failed to persist instance assignment", &e);
     }
     

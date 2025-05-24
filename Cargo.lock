@@ -2444,7 +2444,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "service-discoverability"
+name = "service-discovery"
 version = "0.1.0"
 dependencies = [
  "anyhow",

@@ -1,1 +1,1 @@
-pub mod discoverability_routes;
+pub mod discovery_routes;

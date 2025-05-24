@@ -1,6 +1,6 @@
 use crate::common::response::error_response;
 use crate::common::Config;
-use crate::service::discoverability_service::Deps;
+use crate::service::discovery_service::Deps;
 use anyhow::Result;
 use aws_lambda_events::http::Method;
 use lambda_http::{run, service_fn, Body, Request, RequestExt, Response};
@@ -21,8 +21,8 @@ async fn handler(req: Request, deps: Deps) -> Result<Response<Body>, lambda_http
     info!("Request: {:?}", req);
 
     match *req.method() {
-        Method::GET => Ok(routes::discoverability_routes::handle_get(req, deps).await),
-        Method::PUT => Ok(routes::discoverability_routes::handle_put(req, deps).await),
+        Method::GET => Ok(routes::discovery_routes::handle_get(req, deps).await),
+        Method::PUT => Ok(routes::discovery_routes::handle_put(req, deps).await),
         _ => Ok(error_response(405, format!("Method Not Allowed: {}", Method::GET))),
     }
 }
