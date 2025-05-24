@@ -1,8 +1,9 @@
 mod assignment;
-pub mod group;
+mod group;
 pub mod body;
 pub mod request;
 
 pub use {
     assignment::Assignment,
+    group::Group,
 };

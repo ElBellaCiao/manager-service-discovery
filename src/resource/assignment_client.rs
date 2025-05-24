@@ -1,7 +1,7 @@
 use crate::model::body::PutAssignmentBody;
 use crate::model::request::{GetAssignmentRequest, PutAssignmentRequest};
 use crate::model::Assignment;
-use crate::ServiceDiscoveryClient;
+use crate::client::ServiceDiscoveryClient;
 use anyhow::Result;
 use cloud_util::Api;
 use reqwest::Method;

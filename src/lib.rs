@@ -1,6 +1,13 @@
 mod resource;
 mod model;
 
-pub use resource::*;
-pub use model::request::*;
-pub use model::group::Group;
+pub mod client {
+    pub use crate::resource::ServiceDiscoveryClient;
+}
+pub mod request {
+    pub use crate::model::request::*;
+}
+
+pub mod types {
+    pub use crate::model::{Group, Assignment};
+}

@@ -1,4 +1,4 @@
-use crate::model::group::Group;
+use crate::model::Group;
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use std::net::IpAddr;
