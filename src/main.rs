@@ -5,7 +5,7 @@ use anyhow::Result;
 use aws_lambda_events::http::Method;
 use lambda_http::{run, service_fn, Body, Request, RequestExt, Response};
 use std::sync::Arc;
-use tracing::{instrument, Span};
+use tracing::{info, instrument, Span};
 use tracing_subscriber::EnvFilter;
 use tracing_subscriber::fmt::format::FmtSpan;
 
@@ -18,6 +18,7 @@ mod common;
 async fn handler(req: Request, deps: Deps) -> Result<Response<Body>, lambda_http::Error> {
     let request_id = req.lambda_context().request_id;
     Span::current().record("request_id", tracing::field::display(request_id));
+    info!("Request: {:?}", req);
 
     match *req.method() {
         Method::GET => Ok(routes::discoverability_routes::handle_get(req, deps).await),
