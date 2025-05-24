@@ -16,7 +16,7 @@ impl ServiceDiscoveryClient {
         AssignmentsClient::new(self)
     }
     
-    pub fn get_rest_client(&self) -> &cloud_util::RestApi {
+    pub(crate) fn get_rest_client(&self) -> &cloud_util::RestApi {
         &self.rest_client
     }
 }
