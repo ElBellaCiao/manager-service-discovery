@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use strum_macros::{Display, EnumString};
 
-#[derive(Debug, EnumString, Display, Serialize, Deserialize)]
+#[derive(EnumString, Display, Serialize, Deserialize, Debug, Eq, PartialEq, Hash)]
 #[strum(serialize_all = "lowercase")]
 #[serde(rename_all = "lowercase")]
 pub enum Group {
