@@ -1,5 +1,5 @@
 mod assignment;
-mod group;
+pub mod group;
 pub mod body;
 pub mod request;
 
