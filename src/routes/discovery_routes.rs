@@ -13,7 +13,7 @@ use crate::model::body::PutAssignmentBody;
 pub async fn handle_get(req: Request, deps: Deps) -> Response<Body> {
     let instance_id = match parse_instance_id(&req) {
         Ok(id) => id,
-        Err(e) => return error_response(400, e.to_string())
+        Err(e) => return error_response(400, e)
     };
 
     Span::current().record("instance_id", tracing::field::display(&instance_id));
@@ -38,7 +38,7 @@ pub async fn handle_get(req: Request, deps: Deps) -> Response<Body> {
 pub async fn handle_put(req: Request, deps: Deps) -> Response<Body> {
     let instance_id = match parse_instance_id(&req) {
         Ok(id) => id,
-        Err(e) => return error_response(400, e.to_string())
+        Err(e) => return error_response(400, e)
     };
 
     Span::current().record("instance_id", tracing::field::display(&instance_id));
@@ -96,7 +96,7 @@ fn parse_instance_id(req: &Request) -> Result<InstanceId> {
         Ok(id) => Ok(id),
         Err(e) => {
             warn!(invalid_id = %id_str, "Failed to parse instance ID");
-            bail!("Invalid instance ID: {}", e)
+            bail!("Invalid instance ID: {:?}", e)
         }
     }
 }

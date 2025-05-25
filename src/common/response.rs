@@ -1,3 +1,4 @@
+use std::fmt::Debug;
 use serde_json::json;
 use lambda_http::{Response, Body};
 
@@ -11,8 +12,8 @@ pub fn success_response(body: Option<Body>) -> Response<Body> {
         .unwrap()
 }
 
-pub fn error_response(status_code: u16, message: impl ToString) -> Response<Body> {
-    let payload = json!({ "error": message.to_string() });
+pub fn error_response(status_code: u16, error: impl Debug) -> Response<Body> {
+    let payload = json!({ "error": format!("{:?}", error) });
     Response::builder()
         .status(status_code)
         .header("Content-Type", "application/json")
