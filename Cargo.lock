@@ -667,7 +667,7 @@ dependencies = [
 [[package]]
 name = "cloud-util"
 version = "0.1.0"
-source = "git+https://github.com/ElBellaCiao/cloud-util.git?rev=542eedc7b8fbf3b41e3a414195b2bf4c324bacd2#542eedc7b8fbf3b41e3a414195b2bf4c324bacd2"
+source = "git+https://github.com/ElBellaCiao/cloud-util.git?rev=3014e5cd202c638de47c63acc470e87ea82a872b#3014e5cd202c638de47c63acc470e87ea82a872b"
 dependencies = [
  "anyhow",
  "async-trait",
