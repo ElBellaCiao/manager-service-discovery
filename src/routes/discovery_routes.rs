@@ -1,6 +1,7 @@
+use std::fmt::Debug;
 use anyhow::{bail, Result};
 use chrono::Utc;
-use cloud_util::{CloudError, InstanceId};
+use cloud_util::InstanceId;
 use crate::common::response::{error_response, success_response};
 use crate::model::request::{GetAssignmentRequest, PutAssignmentRequest};
 use crate::service::discovery_service;
@@ -70,17 +71,10 @@ pub async fn handle_put(req: Request, deps: Deps) -> Response<Body> {
     success_response(None)
 }
 
-fn handle_cloud_error(context: &str, err: &CloudError) -> Response<Body> {
-    match err {
-        CloudError::Client(msg) => {
-            error!(error = ?err, "{context} (client-side)");
-            error_response(400, msg)
-        }
-        CloudError::Server(_) => {
-            error!(error = ?err, "{context} (server-side)");
-            error_response(500, "Internal server error")
-        }
-    }
+fn handle_cloud_error(context: &str, err: impl Debug) -> Response<Body> {
+    let msg = format!("{}: {:?}", context, err);
+    error!(msg);
+    error_response(400, msg)
 }
 
 fn parse_instance_id(req: &Request) -> Result<InstanceId> {
