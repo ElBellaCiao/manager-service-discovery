@@ -1,6 +1,8 @@
 mod resource;
 mod model;
 
+pub use cloud_util::InstanceId;
+
 pub mod client {
     pub use crate::resource::ServiceDiscoveryClient;
 }
