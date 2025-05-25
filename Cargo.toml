@@ -26,4 +26,4 @@ derive_builder = "0"
 reqwest = "0"
 
 # === Custom Libraries ===
-cloud-util = {git = "https://github.com/ElBellaCiao/cloud-util.git", features = ["instance", "table", "api"], rev = "3014e5cd202c638de47c63acc470e87ea82a872b" }
+cloud-util = {git = "https://github.com/ElBellaCiao/cloud-util.git", features = ["instance", "table", "api"], rev = "a11b709ca4136c1f18340b56814b7600111d49a7" }
