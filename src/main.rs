@@ -7,7 +7,6 @@ use lambda_http::{run, service_fn, Body, Request, RequestExt, Response};
 use std::sync::Arc;
 use tracing::{info, instrument, Span};
 use tracing_subscriber::EnvFilter;
-use tracing_subscriber::fmt::format::FmtSpan;
 
 mod routes;
 mod model;
@@ -34,7 +33,6 @@ async fn main() -> Result<(), lambda_http::Error> {
         .with_env_filter(EnvFilter::from_default_env())
         .with_target(false)
         .with_level(true)
-        .with_span_events(FmtSpan::ENTER)
         .init();
 
     let config = Config::load_from_env();
