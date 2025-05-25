@@ -21,17 +21,9 @@ pub async fn handle_get(req: Request, deps: Deps) -> Response<Body> {
 
     let get_assignment_request = GetAssignmentRequest { instance_id };
 
-    let result = match discovery_service::get_assignment(get_assignment_request, deps).await {
-        Ok(val) => val,
-        Err(e) => return handle_cloud_error("Failed to fetch instance assignment", &e),
-    };
-
-    match serde_json::to_string(&result) {
-        Ok(body) => success_response(Some(body.into())),
-        Err(e) => {
-            error!(error = ?e, "Failed to serialize response body");
-            error_response(500, "Internal server error")
-        }
+    match discovery_service::get_assignment(get_assignment_request, deps).await {
+        Ok(assignment) => success_response(Some(assignment)),
+        Err(e) => handle_cloud_error("Failed to fetch instance assignment", &e),
     }
 }
 
@@ -64,11 +56,10 @@ pub async fn handle_put(req: Request, deps: Deps) -> Response<Body> {
         expire_at: body.expire_at,
     };
 
-    if let Err(e) = discovery_service::put_assignment(put_request, deps).await {
-        return handle_cloud_error("Failed to persist instance assignment", &e);
+    match discovery_service::put_assignment(put_request, deps).await {
+        Ok(assignment) => success_response(Some(assignment)),
+        Err(e) => handle_cloud_error("Failed to persist instance assignment", &e)
     }
-    
-    success_response(None)
 }
 
 fn handle_cloud_error(context: &str, err: impl Debug) -> Response<Body> {

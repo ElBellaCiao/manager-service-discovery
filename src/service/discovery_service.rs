@@ -26,7 +26,7 @@ pub async fn get_assignment(req: GetAssignmentRequest, deps: Deps) -> Result<Ass
     Ok(instance_assignment)
 }
 
-pub async fn put_assignment(req: PutAssignmentRequest, deps: Deps) -> Result<()> {
+pub async fn put_assignment(req: PutAssignmentRequest, deps: Deps) -> Result<Assignment> {
     let Deps { table_client, instance_client } = deps;
 
     let tags = instance_client.get_tags_by_instance(&req.instance_id).await?;
@@ -48,7 +48,7 @@ pub async fn put_assignment(req: PutAssignmentRequest, deps: Deps) -> Result<()>
         expire_at: req.expire_at,
     };
 
-    table_client.put_entry(assignment).await?;
+    table_client.put_entry(assignment.clone()).await?;
 
-    Ok(())
+    Ok(assignment)
 }
