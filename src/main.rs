@@ -22,7 +22,7 @@ async fn handler(req: Request, deps: Deps) -> Result<Response<Body>, lambda_http
     match *req.method() {
         Method::GET => Ok(routes::discovery_routes::handle_get(req, deps).await),
         Method::PUT => Ok(routes::discovery_routes::handle_put(req, deps).await),
-        _ => Ok(error_response(405, format!("Method Not Allowed: {}", Method::GET))),
+        _ => Ok(error_response(405, format!("Method Not Allowed: {}", *req.method()))),
     }
 }
 
