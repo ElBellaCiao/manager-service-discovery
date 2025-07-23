@@ -1,1 +1,1 @@
-pub mod discovery_service;
+pub mod service_discovery;
