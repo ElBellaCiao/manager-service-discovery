@@ -1,0 +1,16 @@
+[package]
+name = "manager-service-discovery-client"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+# === Core Runtime & Utilities ===
+anyhow = "1"
+chrono = { version = "0", features = ["serde"] }
+serde = { version = "1", features = ["derive"] }
+
+# == http ==
+reqwest = "0"
+
+# === Custom Libraries ===
+cloud-util = {git = "https://github.com/ElBellaCiao/cloud-util.git", features = ["api", "metadata", "config-store", "model"], rev = "346da989745a4682d191ec17651be46ce5bc6379" }

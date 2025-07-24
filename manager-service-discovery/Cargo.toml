@@ -1,0 +1,22 @@
+[package]
+name = "manager-service-discovery"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+tokio = { version = "1", features = ["full"] }
+anyhow = "1"
+chrono = { version = "0", features = ["serde"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tracing = { version = "0", features = ["attributes"] }
+tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }
+config = "0"
+
+# === AWS SDK & Lambda Support ===
+aws_lambda_events = "0"
+lambda_http = "0"
+
+# === Custom Libraries ===
+cloud-util = {git = "https://github.com/ElBellaCiao/cloud-util.git", features = ["instance", "table"], rev = "346da989745a4682d191ec17651be46ce5bc6379" }
+manager-service-discovery-client = { path = "../manager-service-discovery-client" }

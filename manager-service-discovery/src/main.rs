@@ -1,6 +1,6 @@
 use crate::common::{error_response, success_response};
 use crate::config::{Deps, Settings};
-use crate::service::service_discovery::ServiceDiscovery;
+use crate::service::ServiceDiscovery;
 use anyhow::Result;
 use aws_lambda_events::http::Method;
 use lambda_http::{Body, Request, Response, run, service_fn};

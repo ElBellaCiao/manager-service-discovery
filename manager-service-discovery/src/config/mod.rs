@@ -1,4 +1,4 @@
-use crate::service::service_discovery::ServiceDiscovery;
+use crate::service::ServiceDiscovery;
 use anyhow::Result;
 use config::{Config, Environment};
 use serde::Deserialize;

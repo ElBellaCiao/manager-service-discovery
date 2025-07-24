@@ -1,16 +1,13 @@
-use crate::{Assignment, GetAssignmentRequest, ServiceDiscoveryClient};
-use anyhow::Result;
+mod config;
+mod model;
+mod service;
+
+use crate::service::ServiceDiscoveryClient;
 use cloud_util::{Ec2MetadataClient, Metadata, get_config};
-use serde::Deserialize;
-use std::net::IpAddr;
-use std::str::FromStr;
+use config::Config;
+pub use model::*;
 
-#[derive(Deserialize)]
-struct Config {
-    pub manager_service_discovery_url: String,
-}
-
-pub async fn get_assignment() -> Result<Assignment> {
+pub async fn get_assignment() -> anyhow::Result<Assignment> {
     let config = get_config::<Config>()?;
     let api_client = cloud_util::RestApi::builder().build().await;
     let service_discovery_client =
@@ -22,7 +19,7 @@ pub async fn get_assignment() -> Result<Assignment> {
 
     let request = GetAssignmentRequest {
         group,
-        ip: IpAddr::from_str(&ip)?,
+        ip: ip.parse()?,
     };
 
     service_discovery_client.get(request).await
