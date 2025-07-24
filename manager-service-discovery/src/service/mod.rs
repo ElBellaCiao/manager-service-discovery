@@ -20,7 +20,7 @@ impl ServiceDiscovery {
             self.table_client.put_entry(assignment).await?;
         }
 
-        Ok(json!("Success"))
+        Ok(json!({"status": "success"}))
     }
 
     pub async fn get_assignment(&self, req: Request) -> anyhow::Result<Value> {
