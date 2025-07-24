@@ -1,4 +1,4 @@
-use crate::{Assignment, GetAssignmentRequest, PutAssignmentRequest};
+use crate::{Assignment, GetAssignmentRequest};
 use anyhow::Result;
 use cloud_util::Api;
 use reqwest::Method;
@@ -20,14 +20,6 @@ impl ServiceDiscoveryClient {
         let response = self
             .client
             .send_request(Method::GET, &self.base_url, Some(request))
-            .await?;
-        Ok(response)
-    }
-
-    pub async fn put(&self, request: PutAssignmentRequest) -> Result<Assignment> {
-        let response = self
-            .client
-            .send_request(Method::PUT, &self.base_url, Some(request))
             .await?;
         Ok(response)
     }

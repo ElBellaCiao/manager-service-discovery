@@ -22,4 +22,4 @@ lambda_http = "0"
 reqwest = "0"
 
 # === Custom Libraries ===
-cloud-util = {git = "https://github.com/ElBellaCiao/cloud-util.git", features = ["instance", "table", "api"], rev = "5ec9e142002bc1153798af9471824062f6f344b5" }
+cloud-util = {git = "https://github.com/ElBellaCiao/cloud-util.git", features = ["instance", "table", "api", "metadata", "config-store"], rev = "0cdaa62164c87f1869fddc0ee7a1b2f79ac105f3" }

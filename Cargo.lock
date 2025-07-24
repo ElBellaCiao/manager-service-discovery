@@ -233,6 +233,28 @@ dependencies = [
 ]
 
 [[package]]
+name = "aws-sdk-ssm"
+version = "1.80.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "92128e54da7beaee24dd09e30e337c5d36d1733b0d753367a11890be035aa972"
+dependencies = [
+ "aws-credential-types",
+ "aws-runtime",
+ "aws-smithy-async",
+ "aws-smithy-http",
+ "aws-smithy-json",
+ "aws-smithy-runtime",
+ "aws-smithy-runtime-api",
+ "aws-smithy-types",
+ "aws-types",
+ "bytes",
+ "fastrand",
+ "http 0.2.12",
+ "regex-lite",
+ "tracing",
+]
+
+[[package]]
 name = "aws-sdk-sso"
 version = "1.68.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -676,13 +698,14 @@ dependencies = [
 [[package]]
 name = "cloud-util"
 version = "0.1.0"
-source = "git+https://github.com/ElBellaCiao/cloud-util.git?rev=5ec9e142002bc1153798af9471824062f6f344b5#5ec9e142002bc1153798af9471824062f6f344b5"
+source = "git+https://github.com/ElBellaCiao/cloud-util.git?rev=0cdaa62164c87f1869fddc0ee7a1b2f79ac105f3#0cdaa62164c87f1869fddc0ee7a1b2f79ac105f3"
 dependencies = [
  "anyhow",
  "async-trait",
  "aws-config",
  "aws-sdk-dynamodb",
  "aws-sdk-ec2",
+ "aws-sdk-ssm",
  "aws-types",
  "chrono",
  "derive_more",
@@ -690,6 +713,7 @@ dependencies = [
  "reqwest",
  "serde",
  "serde_dynamo",
+ "tokio",
  "tracing",
 ]
 
