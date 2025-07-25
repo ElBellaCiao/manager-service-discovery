@@ -13,5 +13,5 @@ serde = { version = "1", features = ["derive"] }
 reqwest = "0"
 
 # === Custom Libraries ===
-cloud-util = {git = "https://github.com/ElBellaCiao/cloud-util.git", features = ["api", "metadata", "config-store", "model"], rev = "346da989745a4682d191ec17651be46ce5bc6379" }
+cloud-util = {git = "https://github.com/ElBellaCiao/cloud-util.git", features = ["api", "metadata", "config-store", "model"], rev = "d87d73e6148950c5da324072ca2250b3a3412736" }
 tokio = { version = "1.0", features = ["rt-multi-thread"] }

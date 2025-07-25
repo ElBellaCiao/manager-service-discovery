@@ -18,5 +18,5 @@ aws_lambda_events = "0"
 lambda_http = "0"
 
 # === Custom Libraries ===
-cloud-util = {git = "https://github.com/ElBellaCiao/cloud-util.git", features = ["instance", "table"], rev = "346da989745a4682d191ec17651be46ce5bc6379" }
+cloud-util = {git = "https://github.com/ElBellaCiao/cloud-util.git", features = ["instance", "table"], rev = "d87d73e6148950c5da324072ca2250b3a3412736" }
 manager-service-discovery-client = { path = "../manager-service-discovery-client" }
