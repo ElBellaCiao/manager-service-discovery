@@ -45,6 +45,9 @@ impl ServiceDiscovery {
             let group_assignments = self.table_client.get_entries_by_pk(&output_group).await?;
             for output_assignment in group_assignments {
                 for instrument_id in output_assignment.instrument_ids {
+                    if !assignment.instrument_ids.contains(&instrument_id) {
+                        continue;
+                    }
                     instrument_to_ips
                         .entry(instrument_id.to_string())
                         .or_insert_with(Vec::new)
