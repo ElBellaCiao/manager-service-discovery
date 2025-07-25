@@ -10,7 +10,7 @@ pub use model::*;
 use tokio::runtime::Runtime;
 
 // Todo: get 'Group' via ssm param store
-pub fn get_assignment() -> Result<Assignment> {
+pub fn get_assignment() -> Result<AddressBook> {
     Runtime::new()?.block_on(async {
         // config
         let config = get_config::<Config>()?;

@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use std::net::IpAddr;
@@ -34,4 +35,9 @@ impl cloud_util::Keyed for Assignment {
     fn sk(&self) -> String {
         self.ip.to_string()
     }
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct AddressBook {
+    pub instrument_to_ips: HashMap<String, Vec<IpAddr>>
 }

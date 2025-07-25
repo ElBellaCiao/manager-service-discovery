@@ -1,4 +1,4 @@
-use crate::{Assignment, GetAssignmentRequest};
+use crate::{AddressBook, GetAssignmentRequest};
 use anyhow::Result;
 use cloud_util::Api;
 use reqwest::Method;
@@ -16,7 +16,7 @@ impl ServiceDiscoveryClient {
         }
     }
 
-    pub async fn get(&self, request: GetAssignmentRequest) -> Result<Assignment> {
+    pub async fn get(&self, request: GetAssignmentRequest) -> Result<AddressBook> {
         let response = self
             .client
             .send_request(Method::GET, &self.base_url, Some(request))
