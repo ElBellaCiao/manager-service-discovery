@@ -1,9 +1,9 @@
-use std::collections::HashMap;
 use anyhow::{Result, bail};
 use chrono::Utc;
 use lambda_http::Request;
 use manager_service_discovery_client::{Assignment, GetAssignmentRequest, PutAssignmentRequest};
-use serde_json::{Value, json};
+use std::collections::HashMap;
+use std::net::IpAddr;
 use std::sync::Arc;
 
 pub struct ServiceDiscovery {
@@ -15,16 +15,16 @@ impl ServiceDiscovery {
         Self { table_client }
     }
 
-    pub async fn put_assignment(&self, req: Request) -> Result<Value> {
+    pub async fn put_assignment(&self, req: Request) -> Result<()> {
         let put_request = serde_json::from_slice::<PutAssignmentRequest>(req.body().as_ref())?;
         for assignment in put_request.assignments {
             self.table_client.put_entry(assignment).await?;
         }
 
-        Ok(json!({"status": "success"}))
+        Ok(())
     }
 
-    pub async fn get_assignment(&self, req: Request) -> Result<Value> {
+    pub async fn get_assignment(&self, req: Request) -> Result<HashMap<String, Vec<IpAddr>>> {
         let get_request = serde_json::from_slice::<GetAssignmentRequest>(req.body().as_ref())?;
         let assignment = self
             .table_client
@@ -53,6 +53,6 @@ impl ServiceDiscovery {
             }
         }
 
-        Ok(json!(instrument_to_ips))
+        Ok(instrument_to_ips)
     }
 }

@@ -17,9 +17,15 @@ async fn handler(req: Request, deps: Deps) -> Result<Response<Body>, lambda_http
     info!("Request: {:?}", req);
 
     let response = match *req.method() {
-        Method::GET => deps.service_discovery.get_assignment(req).await,
-        Method::PUT => deps.service_discovery.put_assignment(req).await,
-        _ => Ok(json!(format!("Method Not Allowed: {}", *req.method()))),
+        Method::GET => match deps.service_discovery.get_assignment(req).await {
+            Ok(instrument_to_ips) => Ok(json!(instrument_to_ips)),
+            Err(e) => Err(e),
+        },
+        Method::PUT => match deps.service_discovery.put_assignment(req).await {
+            Ok(_) => Ok(json!({"status": "success"})),
+            Err(e) => Err(e),
+        },
+        _ => Ok(json!({"error": format!("Method Not Allowed: {}", *req.method())})),
     };
 
     match response {
