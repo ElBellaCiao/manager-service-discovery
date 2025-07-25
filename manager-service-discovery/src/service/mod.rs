@@ -1,7 +1,9 @@
 use anyhow::{Result, bail};
 use chrono::Utc;
 use lambda_http::Request;
-use manager_service_discovery_client::{AddressBook, Assignment, GetAssignmentRequest, PutAssignmentRequest};
+use manager_service_discovery_client::{
+    AddressBook, Assignment, GetAssignmentRequest, PutAssignmentRequest,
+};
 use std::collections::HashMap;
 use std::sync::Arc;
 
