@@ -1840,6 +1840,7 @@ dependencies = [
  "cloud-util",
  "reqwest",
  "serde",
+ "tokio",
 ]
 
 [[package]]

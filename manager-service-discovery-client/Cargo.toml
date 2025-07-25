@@ -14,3 +14,4 @@ reqwest = "0"
 
 # === Custom Libraries ===
 cloud-util = {git = "https://github.com/ElBellaCiao/cloud-util.git", features = ["api", "metadata", "config-store", "model"], rev = "346da989745a4682d191ec17651be46ce5bc6379" }
+tokio = { version = "1.0", features = ["rt-multi-thread"] }
