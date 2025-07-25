@@ -39,5 +39,5 @@ impl cloud_util::Keyed for Assignment {
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct AddressBook {
-    pub instrument_to_ips: HashMap<String, Vec<IpAddr>>,
+    pub instrument_to_ips: HashMap<usize, Vec<IpAddr>>,
 }

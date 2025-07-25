@@ -50,7 +50,7 @@ impl ServiceDiscovery {
                         continue;
                     }
                     instrument_to_ips
-                        .entry(instrument_id.to_string())
+                        .entry(instrument_id)
                         .or_insert_with(Vec::new)
                         .push(output_assignment.ip);
                 }
