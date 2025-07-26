@@ -18,7 +18,8 @@ pub struct GetAssignmentRequest {
 pub struct Assignment {
     pub group: String,
     pub ip: IpAddr,
-    pub instrument_ids: Vec<usize>,
+    // todo: Grab instrument id Type from a common library
+    pub instrument_ids: Vec<u32>,
     pub output_groups: Vec<String>,
 
     // format required by ddb
@@ -39,5 +40,6 @@ impl cloud_util::Keyed for Assignment {
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct AddressBook {
-    pub instrument_to_ips: HashMap<usize, Vec<IpAddr>>,
+    // todo: Grab instrument id Type from a common library
+    pub instrument_to_ips: HashMap<u32, Vec<IpAddr>>,
 }
